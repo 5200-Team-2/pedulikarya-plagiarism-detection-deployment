@@ -33,7 +33,7 @@ def document_mean_pooling_bert(document):
 
     return document_embedding
 
-
+'''
 def get_bert_embeddings(text):
     tokenized_text = tokenizer.tokenize(text)
     indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)
@@ -47,7 +47,7 @@ def get_bert_embeddings(text):
     # Get the vector representation with 1x768 dimension
     embeddings = torch.mean(token_vecs, dim=0)
     return embeddings
-
+'''
 '''
 # Function to get the BERT embeddings for a given text
 def get_mean_pooled_bert_embeddings(text):
