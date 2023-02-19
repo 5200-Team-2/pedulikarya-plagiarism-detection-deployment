@@ -3,6 +3,7 @@ from transformers import BertTokenizer, BertModel
 
 tokenizer = BertTokenizer.from_pretrained('indobenchmark/indobert-base-p1')
 model = BertModel.from_pretrained('indobenchmark/indobert-base-p1', output_hidden_states=True)
+model.to(device='cuda')
 
 def mean_pooling_bert(text):
     """
@@ -19,7 +20,7 @@ def mean_pooling_bert(text):
     # document = " ".join(sentences)
 
     # Encode the document using BERT
-    input_id = tokenizer.encode(text, return_tensors="pt")
+    input_id = tokenizer.encode(text, return_tensors="pt").to('cuda')
 
     # Pass the input_id through the BERT model
     with torch.no_grad():
@@ -31,7 +32,7 @@ def mean_pooling_bert(text):
     # Calculate the mean pooling of the hidden states for the document
     document_embedding = torch.mean(hidden_states, dim=1)
 
-    return document_embedding
+    return document_embedding.cpu()
 
 '''
 def get_bert_embeddings(text):

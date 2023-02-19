@@ -35,10 +35,10 @@ def get_similar_docs_by_cos_sims(sus_doc_embeddings, n=5):
     cosine_similarities = {}
     for index in same_cluster_indexes:
         e1 = corpus_embeddings[index].cpu()
+        # e1 = corpus_embeddings[index]
         e2 = sus_doc_embeddings
         cosine_similarities[index] = calc_cosine_similarity_from_embeddings(e1, e2)
     
     sorted_ = OrderedDict(sorted(cosine_similarities.items(), key=lambda item: item[1], reverse=True))
     sliced_ = OrderedDict(list(sorted_.items())[:n])
     return sliced_
-
