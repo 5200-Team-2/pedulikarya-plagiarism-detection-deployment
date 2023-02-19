@@ -4,12 +4,12 @@ from transformers import BertTokenizer, BertModel
 tokenizer = BertTokenizer.from_pretrained('indobenchmark/indobert-base-p1')
 model = BertModel.from_pretrained('indobenchmark/indobert-base-p1', output_hidden_states=True)
 
-def document_mean_pooling_bert(document):
+def mean_pooling_bert(text):
     """
-    Calculate mean pooling of the BERT embeddings for a list of sentences.
+    Calculate mean pooling of the BERT embeddings for texts.
 
     Arguments:
-    - document: document to encode.
+    - text: text to encode.
 
     Returns:
     - A single numpy array representing the mean pooling of the BERT embeddings for the document.
@@ -19,7 +19,7 @@ def document_mean_pooling_bert(document):
     # document = " ".join(sentences)
 
     # Encode the document using BERT
-    input_id = tokenizer.encode(document, return_tensors="pt")
+    input_id = tokenizer.encode(text, return_tensors="pt")
 
     # Pass the input_id through the BERT model
     with torch.no_grad():
