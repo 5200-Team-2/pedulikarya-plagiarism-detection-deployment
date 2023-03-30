@@ -31,7 +31,8 @@ def get_plagiarised_pairs(src_doc, sus_doc, threshold=.9):
     score_pairs = compare_documents(src_doc, sus_doc)
     for src_sent, sus_sent, cos_sim in score_pairs:
         if cos_sim >= threshold:
-            plagiarised_pairs.append((src_sent, sus_sent, cos_sim))
+            # plagiarised_pairs.append((src_sent, sus_sent, cos_sim))
+            plagiarised_pairs.append({'source_sentence': src_sent, 'input_sentence': sus_sent, 'similarity_score': cos_sim})
     return plagiarised_pairs
 
 
