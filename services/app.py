@@ -12,7 +12,6 @@ def plagiarism_detailed_analysis():
     '''
     Input from API body:
     {'text': 'lorem ipsum lorem ipsum 1000x'}
-    Max 500 words
     '''
     inputted_text = request.get_json()
     text = inputted_text['text']

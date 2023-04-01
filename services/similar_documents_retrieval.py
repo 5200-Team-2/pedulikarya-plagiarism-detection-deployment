@@ -4,17 +4,33 @@ import torch
 from collections import OrderedDict
 import numpy as np
 from tqdm import tqdm
+# import sys
 
-with open('../data/indosum/df.pkl', 'rb') as f:
+# sys.path.append("..")
+# print(sys.path)
+
+# with open('../data/indosum/df.pkl', 'rb') as f:
+#     corpus = load(f)
+
+# with open('../data/indosum/corpus_embeddings.pkl', 'rb') as f:
+#     corpus_embeddings = load(f)
+
+# with open('../data/indosum/corpus_embeddings_cluster_labels2.pkl', 'rb') as f:
+#     corpus_embeddings_cluster_labels = load(f)
+
+# with open('../data/indosum/kmeans_model2.pkl', 'rb') as f:
+#     kmeans = load(f)
+
+with open('services/data/df.pkl', 'rb') as f:
     corpus = load(f)
 
-with open('../data/indosum/corpus_embeddings.pkl', 'rb') as f:
+with open('services/data/corpus_embeddings.pkl', 'rb') as f:
     corpus_embeddings = load(f)
 
-with open('../data/indosum/corpus_embeddings_cluster_labels2.pkl', 'rb') as f:
+with open('services/data/corpus_embeddings_cluster_labels2.pkl', 'rb') as f:
     corpus_embeddings_cluster_labels = load(f)
 
-with open('../data/indosum/kmeans_model2.pkl', 'rb') as f:
+with open('services/data/kmeans_model2.pkl', 'rb') as f:
     kmeans = load(f)
 
 def get_cluster(sus_doc_embeddings):
