@@ -16,7 +16,7 @@ def plagiarism_detailed_analysis():
     '''
     inputted_text = request.get_json()
     text = inputted_text['text']
-    plagiarism_cases = detailed_plagiarism(sus_text=text, n=5, threshold=.9)
+    plagiarism_cases = detailed_plagiarism(sus_text=text, n=5, threshold=.85, clustering=False)
     return plagiarism_cases
 
 if __name__ == '__main__':

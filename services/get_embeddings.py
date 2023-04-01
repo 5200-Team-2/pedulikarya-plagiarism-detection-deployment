@@ -1,9 +1,10 @@
 import torch
 from transformers import BertTokenizer, BertModel
 
+# device = 'cuda' if torch.cuda.is_available() else 'cpu'
 tokenizer = BertTokenizer.from_pretrained('indobenchmark/indobert-base-p1')
 model = BertModel.from_pretrained('indobenchmark/indobert-base-p1', output_hidden_states=True)
-model.to(device='cuda')
+# model.to(device=device)
 
 def mean_pooling_bert(text):
     """
@@ -20,7 +21,8 @@ def mean_pooling_bert(text):
     # document = " ".join(sentences)
 
     # Encode the document using BERT
-    input_id = tokenizer.encode(text, return_tensors="pt").to('cuda')
+    # input_id = tokenizer.encode(text, return_tensors="pt", padding='max_length', max_length = 512, truncation=True)
+    input_id = tokenizer.encode(text, return_tensors="pt", max_length=512, truncation=True)
 
     # Pass the input_id through the BERT model
     with torch.no_grad():
@@ -32,7 +34,44 @@ def mean_pooling_bert(text):
     # Calculate the mean pooling of the hidden states for the document
     document_embedding = torch.mean(hidden_states, dim=1)
 
-    return document_embedding.cpu()
+    return document_embedding
+
+# def mean_pooling_bert(text):
+#     """
+#     Calculate mean pooling of the BERT embeddings for texts.
+
+#     Arguments:
+#     - text: text to encode.
+
+#     Returns:
+#     - A single numpy array representing the mean pooling of the BERT embeddings for the document.
+#     """
+
+#     # Concatenate the sentences into a single string
+#     # document = " ".join(sentences)
+
+#     # Encode the document using BERT
+    
+#     # input_id = tokenizer.encode(text, return_tensors="pt", truncation=True).to(device)
+#     inputs = tokenizer(
+#         text,
+#         max_length=512,
+#         truncation="only_second",
+#         return_offsets_mapping=True,
+#         padding="max_length",
+#     )
+
+#     # Pass the input_id through the BERT model
+#     with torch.no_grad():
+#         output = model(inputs)
+
+#     # Extract the hidden states of the tokens in the document
+#     hidden_states = output[2][-1]
+
+#     # Calculate the mean pooling of the hidden states for the document
+#     document_embedding = torch.mean(hidden_states, dim=1)
+
+#     return document_embedding.cpu()
 
 '''
 def get_bert_embeddings(text):
