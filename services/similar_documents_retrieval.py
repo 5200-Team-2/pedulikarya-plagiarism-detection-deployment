@@ -4,6 +4,7 @@ import torch
 from collections import OrderedDict
 import numpy as np
 from tqdm import tqdm
+import pandas as pd
 # import sys
 
 # sys.path.append("..")
@@ -21,11 +22,25 @@ from tqdm import tqdm
 # with open('../data/indosum/kmeans_model2.pkl', 'rb') as f:
 #     kmeans = load(f)
 
-with open('services/data/df.pkl', 'rb') as f:
-    corpus = load(f)
+# with open('services/data/df.pkl', 'rb') as f:
+#     corpus = load(f)
+indexes = [0, 3000, 6000, 9000, 12000, 15000, 18000, 21000, 24000, 27000, 30000, 33000, 36000, 39000, 42000, 45000, 48000, 51000, 54000, 57000, 60000, 63000, 66000, 69000, 72000, 75000, 78000, 81000, 84000, 87000, 90000, 93870]
+df_partitions = []
+for i in range(len(indexes)-1):
+    with open(f'services/data/df_partition_{i+1}.pkl', 'rb') as f:
+        df_partitions.append(load(f))
+corpus = pd.concat(df_partitions)
 
-with open('services/data/corpus_embeddings.pkl', 'rb') as f:
-    corpus_embeddings = load(f)
+# with open('services/data/corpus_embeddings.pkl', 'rb') as f:
+#     corpus_embeddings = load(f)
+ce_partitions = []
+for i in range(len(indexes)-1):
+    with open(f'services/data/ce_partition_{i+1}.pkl', 'rb') as f:
+        ce_partitions.append(load(f))
+corpus_embeddings = []
+for ce in ce_partitions:
+    for i in ce:
+        corpus_embeddings.append(i)
 
 with open('services/data/corpus_embeddings_cluster_labels2.pkl', 'rb') as f:
     corpus_embeddings_cluster_labels = load(f)

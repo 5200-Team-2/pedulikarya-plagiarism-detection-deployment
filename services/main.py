@@ -10,9 +10,16 @@ from detailed_analysis import get_plagiarised_pairs
 from datetime import datetime, timedelta
 from nltk.tokenize import sent_tokenize
 from pickle import load, dump
+import pandas as pd
 
-with open('services/data/df.pkl', 'rb') as f:
-    corpus = load(f)
+# with open('services/data/df.pkl', 'rb') as f:
+#     corpus = load(f)
+indexes = [0, 3000, 6000, 9000, 12000, 15000, 18000, 21000, 24000, 27000, 30000, 33000, 36000, 39000, 42000, 45000, 48000, 51000, 54000, 57000, 60000, 63000, 66000, 69000, 72000, 75000, 78000, 81000, 84000, 87000, 90000, 93870]
+df_partitions = []
+for i in range(len(indexes)-1):
+    with open(f'services/data/df_partition_{i+1}.pkl', 'rb') as f:
+        df_partitions.append(load(f))
+corpus = pd.concat(df_partitions)
 
 def transform_suspicious_text(sus_text):
     print('[INFO] Transforming suspicious text into IndoBERT embeddings...')
