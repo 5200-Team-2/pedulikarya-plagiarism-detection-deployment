@@ -3,7 +3,7 @@ from get_embeddings import mean_pooling_bert
 from similar_documents_retrieval import get_similar_docs_by_cos_sims
 from detailed_analysis import get_plagiarised_pairs
 from datetime import datetime
-from main import detailed_plagiarism
+from program import detailed_plagiarism
 
 app = Flask(__name__)
 
