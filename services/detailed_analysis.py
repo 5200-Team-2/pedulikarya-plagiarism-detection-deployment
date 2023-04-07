@@ -8,7 +8,7 @@ from nltk.tokenize import sent_tokenize
 # model = BertModel.from_pretrained('indobenchmark/indobert-base-p1', output_hidden_states=True)
 
 def compare_sentences(src_sent, sus_sent):
-    print(f'[INFO] comparing sentences...')
+    # print(f'[INFO] comparing sentences...')
     src_embedded = mean_pooling_bert(src_sent)
     sus_embedded = mean_pooling_bert(sus_sent)
     cos_sim = calc_cosine_similarity_from_embeddings(src_embedded, sus_embedded)
@@ -23,8 +23,8 @@ def compare_documents(src_doc, sus_doc):
     for i, src_sent in enumerate(src_sents):
         print(f'[INFO] Source Sentence {i}')
         for j, sus_sent in enumerate(sus_sents):
-            print(f'[INFO] Sus Sentence {j}')
-            print(F'[INFO] Checking current source sentence no {i} with sus sentence no {j}...')
+            # print(f'[INFO] Sus Sentence {j}')
+            # print(F'[INFO] Checking current source sentence no {i} with sus sentence no {j}...')
             cos_sim = compare_sentences(src_sent, sus_sent)
             score_pairs.append((src_sent, sus_sent, cos_sim))
     return score_pairs
